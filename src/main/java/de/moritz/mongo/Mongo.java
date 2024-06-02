@@ -11,12 +11,12 @@ import org.bukkit.Bukkit;
 
 public class Mongo {
 
-    private MongoClient mongoClient;
-    private MongoDatabase mongoDatabase;
-    private MongoCollection<Document> collection;
+    public static MongoClient mongoClient;
+    public static MongoDatabase mongoDatabase;
+    public static MongoCollection<Document> collection;
 
     // Method to connect to the database
-    private void connect(String name, String password, String ip, int port) {
+    public static void connect(String name, String password, String ip, int port) {
 
         try {
 
@@ -35,7 +35,7 @@ public class Mongo {
 
     }
 
-    private void disconnect() {
+    public static void disconnect() {
 
         if (mongoClient != null) {
 
