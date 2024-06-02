@@ -1,0 +1,6 @@
+name: database
+version: '${project.version}'
+main: de.moritz.Database
+api-version: '1.20'
+authors: [moritz]
+description: api
