@@ -11,13 +11,16 @@ import org.bukkit.Bukkit;
 
 public class Mongo {
 
-    public static MongoDatabase mongoDatabase;
-    public static MongoCollection<Document> collection;
+    private MongoClient mongoClient;
+    private MongoDatabase mongoDatabase;
+    private MongoCollection<Document> collection;
 
     // Method to connect to the database
-    public static void connect(String name, String password, String ip, int port) {
+    private void connect(String name, String password, String ip, int port) {
 
-        try (MongoClient mongoClient = MongoClients.create("mongodb://" + name + ":" + password + "@" + ip + ":" + port + "/?authSource=admin")) {
+        try {
+
+            mongoClient = MongoClients.create("mongodb://" + name + ":" + password + "@" + ip + ":" + port + "/?authSource=admin");
 
             mongoDatabase = mongoClient.getDatabase("admin");
             collection = mongoDatabase.getCollection("players");
@@ -27,6 +30,17 @@ public class Mongo {
         } catch (Exception e) {
 
             Bukkit.getConsoleSender().sendMessage(Component.text("Cant connect to the database!").color(TextColor.color(0xcc0000)));
+
+        }
+
+    }
+
+    private void disconnect() {
+
+        if (mongoClient != null) {
+
+            mongoClient.close();
+            Bukkit.getConsoleSender().sendMessage(Component.text("Database connection closed successfully!").color(TextColor.color(0xcc0000)));
 
         }
 
